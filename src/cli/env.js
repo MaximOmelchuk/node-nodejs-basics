@@ -1,5 +1,3 @@
-// import dotenv from 'dotenv'
-
 const parseEnv = () => {
   const envObj = process.env;
   Object.keys(envObj)
