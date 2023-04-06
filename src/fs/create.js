@@ -7,7 +7,9 @@ const create = async () => {
 
   fs.readFile(path, (err) => {
     if (err) {
-      fs.writeFile(path, content, () => {});
+      fs.writeFile(path, content, (err) => {
+        if (err) console.log(err);
+      });
     } else {
       throw new Error("FS operation failed");
     }
