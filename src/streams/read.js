@@ -1,4 +1,3 @@
-// import stream from "stream";
 import fs from "fs";
 const read = async () => {
   const path = "./files/fileToRead.txt";
