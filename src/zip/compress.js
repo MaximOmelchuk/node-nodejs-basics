@@ -7,7 +7,12 @@ const compress = async () => {
 
   fs.createReadStream(soursePath)
     .pipe(zlib.createGzip())
-    .pipe(fs.createWriteStream(destPath));
+    .pipe(fs.createWriteStream(destPath))
+    .on("finish", () =>
+      fs.unlink(soursePath, (err) => {
+        if (err) console.log(err);
+      })
+    );
 };
 
 await compress();
