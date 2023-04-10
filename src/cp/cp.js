@@ -1,21 +1,9 @@
-import { spawn, exec, fork } from "child_process";
-import path from "path";
+import { fork } from "child_process";
 
 const spawnChildProcess = async (args) => {
-  // const child = spawn("cp ..");
-  const child = fork(path.resolve(process.cwd(),"files/script"), [...args]);
-  // child.stdout.on('data', (data) => {
-  //   console.log(`child stdout:\n${data}`);
-  // });
-  // child.stdout.on("data", (data) => {
-  //   console.log(data.toString());
-  // });
-  process.stdin.on("data", (data) => {
-    console.log(process.send);
-    process.send(data.toString());
-  });
-  process.on("message", (data) => {
-    console.log(data);
+  const child = fork("files/script", args);
+  child.on("exit", (code) => {
+    process.stdout.write(`Closed with code ${code}`);
   });
 };
 
