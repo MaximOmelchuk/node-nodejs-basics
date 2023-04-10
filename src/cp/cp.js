@@ -1,9 +1,9 @@
-import { spawn, exec } from "child_process";
+import { fork } from "child_process";
 
 const spawnChildProcess = async (args) => {
-  const child = spawn("node script", args, { cwd: "./files" });
-  child.stdout.on("data", (data) => {
-    console.log(data);
+  const child = fork("files/script", args);
+  child.on("exit", (code) => {
+    process.stdout.write(`Closed with code ${code}`);
   });
 };
 
